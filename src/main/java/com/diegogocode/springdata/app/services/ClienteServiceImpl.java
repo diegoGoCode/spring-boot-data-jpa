@@ -3,6 +3,8 @@ package com.diegogocode.springdata.app.services;
 import com.diegogocode.springdata.app.dao.IClienteDao;
 import com.diegogocode.springdata.app.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,12 @@ public class ClienteServiceImpl implements IClienteService{
     @Override
     public List<Cliente> findAll() {
         return (List<Cliente>) iClienteDao.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<Cliente> findAll(Pageable pageable) {
+        return iClienteDao.findAll(pageable);
     }
 
     @Transactional
